@@ -26,6 +26,11 @@ fn not_found(_: &Request) -> Json<ApiError> {
 // HTTP GET, PUT, POST & DELETE
 // -----------------------------------------------------------------------------
 
+#[get("/")]
+fn index() -> String {
+    format!("Rocket Webserver!")
+}
+
 #[get("/employees", format = "application/json")]
 fn employee_list() -> Json<EmployeeList> {
     use schema::employees::dsl::*;
@@ -109,7 +114,7 @@ fn employee_delete(employee_id: i32) -> Option<NoContent> {
 // -----------------------------------------------------------------------------
 
 pub fn gen_routes() -> Vec<Route> {
-    routes![employee_list, employee_get, employee_put, employee_update, employee_delete]
+    routes![index, employee_list, employee_get, employee_put, employee_update, employee_delete]
 }
 
 pub fn gen_errors() -> Vec<Catcher> {
